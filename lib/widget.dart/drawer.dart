@@ -1,3 +1,6 @@
+import 'dart:ui';
+import 'package:coursify_app/screens/about.dart';
+import 'package:coursify_app/screens/settings.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
  String ans ="";
@@ -35,17 +38,27 @@ class _drawerState extends State<drawer> {
          ListTile(
           leading: Icon(Icons.settings),
           title: Text('Settings'),
-           onTap: (){},
+           onTap: (){
+             Navigator.push(context, MaterialPageRoute(builder: (context)=>settingsPage()));
+           },
         ),
         ListTile(
           leading: Icon(Icons.feedback),
           title: Text('Feedback'),
-           onTap: (){},
+           onTap: (){
+            showDialog(context: context, builder: (BuildContext context){
+                          return BackdropFilter(
+                            filter: ImageFilter.blur(),
+                            child: AlertDialog(content:Text('To give the feedback about the application please send a mail to - ranganshyamsundar@gmail.com')));
+
+           },);}
         ),
          ListTile(
           leading: Icon(Icons.info_outline),
           title: Text('About'),
-           onTap: (){},
+           onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>aboutPage()));
+           },
         ),
 
       ],)
