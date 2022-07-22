@@ -49,7 +49,9 @@ class _drawerState extends State<drawer> {
             showDialog(context: context, builder: (BuildContext context){
                           return BackdropFilter(
                             filter: ImageFilter.blur(),
-                            child: AlertDialog(content:Text('To give the feedback about the application please send a mail to - ranganshyamsundar@gmail.com')));
+                            child: AlertDialog(content:Column(children:[Text('To give the feedback about the application please send a mail to the following email'),
+                            
+                            ],mainAxisSize: MainAxisSize.min,)));
 
            },);}
         ),

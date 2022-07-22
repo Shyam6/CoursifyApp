@@ -19,7 +19,7 @@ class _coursesState extends State<courses> {
    ToastContext().init(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.blue[100],
+        backgroundColor: Colors.white,
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.blue[900],
