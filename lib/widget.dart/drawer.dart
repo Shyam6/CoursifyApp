@@ -1,7 +1,10 @@
 import 'dart:ui';
+import 'package:coursify_app/models/friend.dart';
+import 'package:coursify_app/providers/leaderboard_provider.dart';
 import 'package:coursify_app/screens/about.dart';
 import 'package:coursify_app/screens/settings.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
  String ans ="";
 class drawer extends StatefulWidget {
@@ -15,6 +18,7 @@ class _drawerState extends State<drawer> {
   @override
 
   Widget build(BuildContext context) {
+    LeaderProvider leadprov = Provider.of<LeaderProvider>(context);
      SharedPreferences.getInstance().then((prefs) {   
       setState(() {
         ans = prefs.getString('username').toString();
@@ -33,7 +37,10 @@ class _drawerState extends State<drawer> {
         ListTile(
           leading: Icon(Icons.people),
           title: Text('Friends'),
-           onTap: (){},
+           onTap: (){
+           friend neww = friend(name: "Shyam", coursesfinished: 5);
+            leadprov.addFriend(neww);
+           },
         ),
          ListTile(
           leading: Icon(Icons.settings),

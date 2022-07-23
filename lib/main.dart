@@ -1,4 +1,5 @@
 import 'package:coursify_app/providers/course_provider.dart';
+import 'package:coursify_app/providers/leaderboard_provider.dart';
 import 'package:coursify_app/screens/Welcome.dart';
 import 'package:coursify_app/screens/home.dart';
 import 'package:coursify_app/screens/signIn.dart';
@@ -36,7 +37,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(providers: [
     
     ChangeNotifierProvider(create: (context)=>CourseProvider()),
-   
+    ChangeNotifierProvider(create: (context)=>LeaderProvider())
 
     ],
       child: MaterialApp(

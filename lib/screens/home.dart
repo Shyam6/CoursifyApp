@@ -1,4 +1,5 @@
 import 'package:coursify_app/models/course.dart';
+import 'package:coursify_app/screens/leaderboard.dart';
 import 'package:coursify_app/screens/mycourses.dart';
 import 'package:coursify_app/screens/signIn.dart';
 import 'package:coursify_app/widget.dart/drawer.dart';
@@ -118,8 +119,7 @@ class _HomePageState extends State<HomePage> {
              Padding(
             padding: EdgeInsets.symmetric(horizontal: 118.7),
             child:ElevatedButton.icon(onPressed : (){
-              
-
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>leaderPage()));
             }, 
             icon: Icon(Icons.list),
             label: Text('Leaderboard',
