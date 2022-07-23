@@ -44,12 +44,18 @@ class CourseApi {
     //print(response.body);  
  } 
 
-  static void coursefetch (String name) async {
-    Uri requesturi = Uri.parse(baseurl+'/fetch?query'+name);
+  static Future<List<Course>> coursefetch (String name) async {
+    Uri requesturi = Uri.parse(baseurl+'/fetch?query='+name);
     var response = await http.get(requesturi);
      var decodedResponse = jsonDecode(response.body);
-    // 
-    print(decodedResponse);
+
+     List<Course> courses =[];
+     
+     for(var coursemap in decodedResponse){
+      courses.add(Course.fromMap(coursemap));
+     }
+
+    return courses;
  } 
 
 }

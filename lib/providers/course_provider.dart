@@ -1,10 +1,17 @@
 
+import 'package:coursify_app/services/api_services.dart';
 import 'package:flutter/material.dart';
 import 'package:coursify_app/models/course.dart';
 
 class CourseProvider with ChangeNotifier{
 
 List<Course> courses =[];
+
+CourseProvider(){
+  coursefetch("Shyam");
+}
+
+
 
 void addCourse(Course course){
    courses.add(course);
@@ -36,10 +43,9 @@ void updateRem(String id,Map reminder,int norem){
   courses[idx].remvlec.addAll(reminder);
   notifyListeners();
 }
-// void coursefetch(String userrname){
-//   courses = 
-// }
-
-
+void coursefetch(String userrname)async{
+   courses = await CourseApi.coursefetch("Shyam");
+   notifyListeners();
+ }
 
 }
