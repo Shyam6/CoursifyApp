@@ -48,13 +48,12 @@ class CourseApi {
     Uri requesturi = Uri.parse(baseurl+'/fetch?query='+name);
     var response = await http.get(requesturi);
      var decodedResponse = jsonDecode(response.body);
-
+     print(decodedResponse);
      List<Course> courses =[];
      
      for(var coursemap in decodedResponse){
       courses.add(Course.fromMap(coursemap));
      }
-
     return courses;
  } 
 

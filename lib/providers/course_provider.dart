@@ -2,13 +2,15 @@
 import 'package:coursify_app/services/api_services.dart';
 import 'package:flutter/material.dart';
 import 'package:coursify_app/models/course.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CourseProvider with ChangeNotifier{
 
 List<Course> courses =[];
 
-CourseProvider(){
-  coursefetch("Shyam");
+CourseProvider() {
+  
+  coursefetch();
 }
 
 
@@ -43,8 +45,9 @@ void updateRem(String id,Map reminder,int norem){
   courses[idx].remvlec.addAll(reminder);
   notifyListeners();
 }
-void coursefetch(String userrname)async{
-   courses = await CourseApi.coursefetch("Shyam");
+void coursefetch()async{
+   final prefs = await SharedPreferences.getInstance();
+   courses = await CourseApi.coursefetch(prefs.getString('username').toString());
    notifyListeners();
  }
 

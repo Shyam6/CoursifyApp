@@ -6,8 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 class courses extends StatefulWidget {
-  const courses({ Key? key }) : super(key: key);
-
+  const courses({ Key? key}) : super(key: key);
   @override
   State<courses> createState() => _coursesState();
 }
@@ -41,6 +40,7 @@ class _coursesState extends State<courses> {
                  weekdata: courseprovider.courses[index].weekdata,
                  remvlec: courseprovider.courses[index].remvlec,
                  noOfReminders: courseprovider.courses[index].noOfReminders,
+                 url: courseprovider.courses[index].url,
                  );
           })
       ),

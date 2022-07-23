@@ -1,5 +1,6 @@
 import 'package:coursify_app/models/course.dart';
 import 'package:coursify_app/screens/mycourses.dart';
+import 'package:coursify_app/screens/signIn.dart';
 import 'package:coursify_app/widget.dart/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,7 +44,7 @@ class _HomePageState extends State<HomePage> {
       onPressed: () async {
         final prefs = await SharedPreferences.getInstance();
         prefs.remove('username');
-        Navigator.pop(context);
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Namepage()));
       },)],
           elevation: 0,
           backgroundColor: Colors.blue[900]
@@ -90,6 +91,7 @@ class _HomePageState extends State<HomePage> {
                      print(res);
                      ToastContext().init(context);
                     Toast.show(res,duration: 2);
+                    controller.clear();
                     },
                   ),
                 ),

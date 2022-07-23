@@ -12,7 +12,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class mycoursecard extends StatefulWidget {
   const mycoursecard({ Key? key , required this.courseName,required this.instructorName,required this.id,required this.lecturesFinished,
-  required this.noOfLectures,required this.noOfWeeks,required this.weekdata,required this.remvlec,required this.noOfReminders}) : super(key: key);
+  required this.noOfLectures,required this.noOfWeeks,required this.weekdata,required this.remvlec,required this.noOfReminders,required this.url}) : super(key: key);
    final String courseName ;
   final String  instructorName ;
   final String id;
@@ -22,6 +22,7 @@ class mycoursecard extends StatefulWidget {
   final Map weekdata;
   final int noOfReminders;
   final Map remvlec;
+  final String url;
   @override
   State<mycoursecard> createState() => _mycoursecardState();
    
@@ -113,7 +114,7 @@ class _mycoursecardState extends State<mycoursecard> {
                         ],
                        ),
                       Container(height: 76,child: IconButton(onPressed: () async {
-                      // await launchUrlString(widget.url);
+                       await launchUrlString(widget.url);
 
                       }, icon: Image.asset('assests/coursera.png',),iconSize: 120,padding: EdgeInsets.all(0),))
                      ],
