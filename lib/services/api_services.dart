@@ -44,4 +44,12 @@ class CourseApi {
     //print(response.body);  
  } 
 
+  static void coursefetch (String name) async {
+    Uri requesturi = Uri.parse(baseurl+'/fetch?query'+name);
+    var response = await http.get(requesturi);
+     var decodedResponse = jsonDecode(response.body);
+    // 
+    print(decodedResponse);
+ } 
+
 }

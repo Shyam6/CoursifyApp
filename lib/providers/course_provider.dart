@@ -36,7 +36,9 @@ void updateRem(String id,Map reminder,int norem){
   courses[idx].remvlec.addAll(reminder);
   notifyListeners();
 }
-
+// void coursefetch(String userrname){
+//   courses = 
+// }
 
 
 
