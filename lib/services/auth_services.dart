@@ -1,3 +1,4 @@
+import 'package:coursify_app/models/friend.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,6 +21,28 @@ static String baseurl = "https://ancient-scrubland-07381.herokuapp.com/";
     final userInf = await SharedPreferences.getInstance();
     userInf.setString('username', username);
     return response.body;  
+  }
+
+static Future<String> getFriendDets(String friendname) async {
+
+    Uri requesturi = Uri.parse(baseurl+'friendDetails?query='+ friendname);
+    var response = await http.get(requesturi);
+    return response.body;
+  }
+
+static Future<String> addFriend(String friendname,String myname) async {
+
+    Uri requesturi = Uri.parse(baseurl+'addUser?query='+ friendname);
+    var response = await http.post(requesturi,body: {"username":myname});
+    return response.body;
+  }
+
+  static Future<List<String>> friendNames() async {
+    var prefs = await SharedPreferences.getInstance();
+     var myname = prefs.getString('username').toString();
+    Uri requesturi = Uri.parse(baseurl+'friendnames?query='+ myname);
+    var response = await http.get(requesturi);
+    return json.decode(response.body);
   }
 
 }

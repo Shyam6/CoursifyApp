@@ -23,6 +23,7 @@ class _HomePageState extends State<HomePage> {
   var controller = TextEditingController();
  
   Widget build(BuildContext context) {
+     ToastContext().init(context);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,

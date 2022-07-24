@@ -2,6 +2,7 @@ import 'package:coursify_app/providers/leaderboard_provider.dart';
 import 'package:coursify_app/widget.dart/friendtile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:toast/toast.dart';
 
 class leaderPage extends StatefulWidget {
   const leaderPage({ Key? key }) : super(key: key);
@@ -15,7 +16,7 @@ class _leaderPageState extends State<leaderPage> {
   Widget build(BuildContext context) {
   
      LeaderProvider leadprov = Provider.of<LeaderProvider>(context);
-
+      ToastContext().init(context);
     return SafeArea(child: Scaffold(
        appBar: AppBar(
         title: Text("Leader Board"),
