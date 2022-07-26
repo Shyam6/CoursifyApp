@@ -10,11 +10,13 @@ class Course{
   String dateAdded;
   Map remvlec;
   int noOfReminders;
+  int noOfNoRems;
   String url ; 
   Course({ required this.id, required this.userid, required this.courseName, required this.instructorName, required this.noOfWeeks, required this.noOfLectures, required this.weekdata, 
   required this.dateAdded,required this.lecturesFinished,
   required this.remvlec,
   required this.noOfReminders,
+  required this.noOfNoRems,
   required this.url
   });
 
@@ -35,7 +37,8 @@ factory Course.fromMap(Map<String,dynamic> map){
     dateAdded: map["dateAdded"],
     remvlec: map["remvlec"],
     noOfReminders: map["noOfReminders"],
-    url: map["url"]
+    url: map["url"],
+    noOfNoRems: map["noOfNoRems"]
    );
 }
  Map<String,dynamic> toMap(){
@@ -51,7 +54,8 @@ factory Course.fromMap(Map<String,dynamic> map){
          "dateAdded":dateAdded,
          "remvlec":remvlec,
          "noOfReminders":noOfReminders,
-         "url":url
+         "url":url,
+         "noOfNoRems":noOfNoRems
        };
  }
 

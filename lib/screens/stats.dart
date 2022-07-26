@@ -22,7 +22,7 @@ class _statsState extends State<stats> {
        dat.add(graphC(ydata: widget.remvlec[k], xdata: k));
     }
     return SafeArea (child:Scaffold(
-      backgroundColor: Colors.blue[100],
+      backgroundColor: Colors.white,
        appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.blue[900],

@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'dart:ui';
+import 'package:coursify_app/providers/leaderboard_provider.dart';
 import 'package:coursify_app/screens/stats.dart';
+import 'package:coursify_app/services/auth_services.dart';
 import 'package:flutter_alarm_clock/flutter_alarm_clock.dart';
 import 'package:flutter/material.dart';
 import 'package:coursify_app/providers/course_provider.dart';
@@ -12,7 +14,7 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class mycoursecard extends StatefulWidget {
   const mycoursecard({ Key? key , required this.courseName,required this.instructorName,required this.id,required this.lecturesFinished,
-  required this.noOfLectures,required this.noOfWeeks,required this.weekdata,required this.remvlec,required this.noOfReminders,required this.url}) : super(key: key);
+  required this.noOfLectures,required this.noOfWeeks,required this.weekdata,required this.remvlec,required this.noOfReminders,required this.url,required this.noOfNoRems}) : super(key: key);
    final String courseName ;
   final String  instructorName ;
   final String id;
@@ -23,6 +25,7 @@ class mycoursecard extends StatefulWidget {
   final int noOfReminders;
   final Map remvlec;
   final String url;
+  final int noOfNoRems;
   @override
   State<mycoursecard> createState() => _mycoursecardState();
    
@@ -37,6 +40,9 @@ class _mycoursecardState extends State<mycoursecard> {
   @override
  
   Widget build(BuildContext context) {
+  
+  LeaderProvider leadprov = Provider.of<LeaderProvider>(context);
+
     return Card(
       elevation: 8,
       shape: RoundedRectangleBorder(
@@ -98,9 +104,22 @@ class _mycoursecardState extends State<mycoursecard> {
             ),
             onPressed: () async{
               int lecfin = widget.lecturesFinished+ int.parse(leccontroller.text); 
-             Provider.of<CourseProvider>(context,listen: false).updateNote(widget.id,int.parse(leccontroller.text));
-       Map<String,dynamic>   map = {"lecturesFinished":lecfin.toString(),"remvlec":json.encode(widget.remvlec),"noOfReminders":widget.noOfReminders.toString()};
+             Provider.of<CourseProvider>(context,listen: false).updateNote(widget.id,int.parse(leccontroller.text),widget.noOfNoRems);
+             if(lecfin>=widget.noOfLectures){
+              var cf = await authService.setCoursesFinished();
+             // print(cf);
+              if(cf!="Couldnot update finished courses"){
+                int coursesfinished = int.parse(cf);
+                leadprov.updateCoursesfinished(coursesfinished);
+              }
+              else{
+                print(cf);
+              }
+             }
+            // print(5);
+       Map<String,dynamic>   map = {"lecturesFinished":lecfin.toString(),"remvlec":json.encode(widget.remvlec),"noOfReminders":widget.noOfReminders.toString(),"noOfNoRems":widget.noOfNoRems.toString()};
              var res = await CourseApi.updateCourse(widget.id, map);
+
               Toast.show(res);
              Navigator.pop(context);
             },

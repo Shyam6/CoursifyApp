@@ -28,7 +28,7 @@ class _coursesState extends State<courses> {
             fontWeight: FontWeight.bold,
           ),),   
         ),
-        body: ListView.builder(
+        body: (courseprovider.isloading==false)?ListView.builder(
           itemCount: courseprovider.courses.length,
           itemBuilder: (context,index){
 
@@ -41,8 +41,9 @@ class _coursesState extends State<courses> {
                  remvlec: courseprovider.courses[index].remvlec,
                  noOfReminders: courseprovider.courses[index].noOfReminders,
                  url: courseprovider.courses[index].url,
+                 noOfNoRems: courseprovider.courses[index].noOfNoRems,
                  );
-          })
+          }):Center(child: CircularProgressIndicator() )
       ),
     );
   }

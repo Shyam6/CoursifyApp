@@ -13,7 +13,7 @@ import 'package:uuid/uuid.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({ Key? key}) : super(key: key);
-
+ 
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   var controller = TextEditingController();
  
   Widget build(BuildContext context) {
-     ToastContext().init(context);
+     
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -80,9 +80,12 @@ class _HomePageState extends State<HomePage> {
                   suffixIcon: IconButton(
                     icon: Icon(Icons.add,color:Colors.blue[900]),
                     onPressed: () async {
+                      String name = "No Name";
+                     var prefs = await SharedPreferences.getInstance();
+                      name = prefs.getString('username').toString();   
                        Map<String,dynamic> mp = {
                        "id": const Uuid().v1().toString(),
-                        "userid":"Shyam",
+                        "userid":name,
                       };
                       var res = await CourseApi.addCourse(mp,controller.text);
                      var courseresponse =  await CourseApi.courseInfo(mp["id"]);
@@ -90,7 +93,7 @@ class _HomePageState extends State<HomePage> {
                        Course currentcourse = Course.fromMap(courseresponse) ;
                      Provider.of<CourseProvider>(context,listen: false).addCourse(currentcourse);
                      }
-                     print(res);
+                   //  print(res);
                      ToastContext().init(context);
                     Toast.show(res,duration: 2);
                     controller.clear();

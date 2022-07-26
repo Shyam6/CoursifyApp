@@ -37,12 +37,22 @@ static Future<String> addFriend(String friendname,String myname) async {
     return response.body;
   }
 
-  static Future<List<String>> friendNames() async {
+  static Future<List<dynamic>> friendNames() async {
     var prefs = await SharedPreferences.getInstance();
      var myname = prefs.getString('username').toString();
     Uri requesturi = Uri.parse(baseurl+'friendnames?query='+ myname);
     var response = await http.get(requesturi);
+    //print(json.decode(response.body).runtimeType);
     return json.decode(response.body);
   }
 
+
+  static Future<String>  setCoursesFinished() async {
+      var prefs = await SharedPreferences.getInstance();
+     var myname = prefs.getString('username').toString();
+    Uri requesturi = Uri.parse(baseurl+'course/updatecourses?query='+ myname);
+    var response = await http.post(requesturi,body: {"coursesfinished":"1"});
+    //print(json.decode(response.body).runtimeType);
+    return response.body;
+  }
 }

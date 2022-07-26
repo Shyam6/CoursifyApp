@@ -1,8 +1,11 @@
+import 'package:coursify_app/models/friend.dart';
 import 'package:coursify_app/screens/home.dart';
 import 'package:coursify_app/screens/signIn.dart';
 import 'package:coursify_app/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:toast/toast.dart';
+import 'package:provider/provider.dart';
+import 'package:coursify_app/providers/leaderboard_provider.dart';
 class SignUppage extends StatefulWidget {
   const SignUppage({ Key? key }) : super(key: key);
 
@@ -21,6 +24,9 @@ String username = "" ;
   var usercontroller = TextEditingController();
 
   Widget build(BuildContext context) {
+
+    LeaderProvider leadprov = Provider.of<LeaderProvider>(context);
+    ToastContext().init(context);
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -57,7 +63,21 @@ String username = "" ;
                    if(_formkey.currentState!.validate()){
                        var response = await authService.signUp(username, password);
                         if(response == "User registered"){
-                          ToastContext().init(context);
+                           int cf ;
+                      var res = await authService.addFriend(username,username);
+                      if(res=="user added"){
+                        var coursesfinished = await authService.getFriendDets(username);
+                        if(coursesfinished!="Could not find the details due error"){
+                           cf = int.parse(coursesfinished);
+                          
+                            Toast.show(res);
+                        }
+                        else{
+                          Toast.show("Couldnot add user to leaderboard");
+                        }
+                      }
+                      else{   
+                    Toast.show("Couldnot add user to leaderboard");}
                     Toast.show(response);
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>Namepage()));
                      }

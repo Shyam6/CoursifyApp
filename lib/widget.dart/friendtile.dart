@@ -12,14 +12,14 @@ class _friendTileState extends State<friendTile> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 8,
+      elevation: 4,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
       ),
-      shadowColor: Colors.grey[300],
+      shadowColor: Colors.grey[100],
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [Text(widget.name.toString()),Text(":"),Text("${widget.coursesfinished}")],
+        children: [Text(widget.name.toString(),style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400),),Text(":",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400)),Text("${widget.coursesfinished}",style: TextStyle(fontSize: 18,fontWeight: FontWeight.w400))],
       ),
     );
   }

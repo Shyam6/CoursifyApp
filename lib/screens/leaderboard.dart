@@ -18,13 +18,14 @@ class _leaderPageState extends State<leaderPage> {
      LeaderProvider leadprov = Provider.of<LeaderProvider>(context);
       ToastContext().init(context);
     return SafeArea(child: Scaffold(
+      resizeToAvoidBottomInset:false,
        appBar: AppBar(
         title: Text("Leader Board"),
         backgroundColor: Colors.blue[900],
         centerTitle: true,
        ),
       body: 
-        Column(
+      (leadprov.isLoading==false)?Column(
           mainAxisSize: MainAxisSize.min,
           children: [SizedBox(height: 10),Row(
             mainAxisSize: MainAxisSize.min,
@@ -44,7 +45,7 @@ class _leaderPageState extends State<leaderPage> {
             
           
            ],
-      ),
+      ):Center(child: CircularProgressIndicator(),),
 
     ));
   }

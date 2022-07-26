@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'dart:ui';
 import 'package:coursify_app/models/friend.dart';
 import 'package:coursify_app/providers/leaderboard_provider.dart';
@@ -45,6 +44,7 @@ class _drawerState extends State<drawer> {
           //  friend neww = friend(name: "Shyam", coursesfinished: 5);
           //   leadprov.addFriend(neww);
           showDialog(context: context, builder: (BuildContext context){
+             ToastContext().init(context);
                           return BackdropFilter(
                             filter: ImageFilter.blur(),
                             child: AlertDialog(
@@ -53,6 +53,7 @@ class _drawerState extends State<drawer> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text("Add your friends"),
+                    SizedBox(height:15),
                     TextField(
                       controller: friendcontroller,
                       decoration: InputDecoration(
