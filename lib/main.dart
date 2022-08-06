@@ -22,7 +22,6 @@ Future<void> main() async {
   if(prefs.getString('username')!=null&&prefs.getString('username')!.isEmpty==false){
       firstWidget = HomePage();
   }
-  
   runApp(const MyApp());
 }
 

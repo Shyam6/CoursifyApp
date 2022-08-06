@@ -8,6 +8,11 @@ class welcomescreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     double sw = MediaQuery.of(context).size.width;
+     double sh = MediaQuery.of(context).size.height;
+     double spacing = sh-583.4;
+     double s1 = ((spacing*16)/76);
+     double s2 = ((spacing*60)/76);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.blue[100],
@@ -17,7 +22,7 @@ class welcomescreen extends StatelessWidget {
             children: [
              
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 55.7),
+                  padding: EdgeInsets.symmetric(vertical: 5,horizontal: (sw-300)/2),
                   child: Image.asset('assests/welcomepng.png',height: 300,width:300)), 
                  
                 Text('Welcome to Coursify',
@@ -29,7 +34,7 @@ class welcomescreen extends StatelessWidget {
                     textAlign : TextAlign.left,
                     ),
               
-                  SizedBox(height: 16,),
+                  SizedBox(height: s1,),
                Padding(
                  padding: const EdgeInsets.symmetric(horizontal: 15),
                  child: Text('A place to manage,set reminders and keep track of all your courses',
@@ -42,7 +47,7 @@ class welcomescreen extends StatelessWidget {
                    ),
                ),
          
-               SizedBox(height: 60,),
+               SizedBox(height: s2,),
                ElevatedButton(onPressed: () async {
 
                 final prefs = await SharedPreferences.getInstance();

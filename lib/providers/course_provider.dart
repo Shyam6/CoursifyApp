@@ -22,6 +22,8 @@ void addCourse(Course course){
    notifyListeners();
 }
 void updateNote(String id,int lecfin,int n){
+  print(id);
+  print(courses.first.id);
   int idx = courses.indexOf(courses.firstWhere((element) => element.id==id));
   courses[idx].lecturesFinished += lecfin;
   if(courses[idx].remvlec.isEmpty==false){

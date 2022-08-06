@@ -7,7 +7,8 @@ import 'package:toast/toast.dart';
 
 class LeaderProvider with ChangeNotifier{
 
-LeaderProvider(){
+
+LeaderProvider()  {
   fetchLeaders();
 }
 
@@ -47,5 +48,5 @@ var myname = prefs.getString('username').toString();
   friends.removeWhere((element) => element.name==myname);
   addFriend(friend(name: myname, coursesfinished: cf));
 }
-
+notifyListeners();
 }

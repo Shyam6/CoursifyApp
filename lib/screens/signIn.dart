@@ -1,7 +1,10 @@
+import 'package:coursify_app/providers/leaderboard_provider.dart';
 import 'package:coursify_app/screens/home.dart';
 import 'package:coursify_app/screens/signUp.dart';
 import 'package:flutter/material.dart';
 import 'package:coursify_app/services/auth_services.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 class Namepage extends StatefulWidget {
   const Namepage({ Key? key }) : super(key: key);
@@ -22,6 +25,12 @@ class _NamepageState extends State<Namepage> {
   var usercontroller = TextEditingController();
 
   Widget build(BuildContext context) {
+
+     double statusheight = MediaQuery.of(context).viewPadding.top;
+     double sh = MediaQuery.of(context).size.height;
+     sh = sh - statusheight;
+     sh = sh-582;
+     
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -33,7 +42,7 @@ class _NamepageState extends State<Namepage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 20.0),
+              SizedBox(height: sh/2),
              Container( width: 350,child:  TextFormField(
               controller: usercontroller,
                 decoration: InputDecoration(hintText: "Enter your Username"),
@@ -61,6 +70,8 @@ class _NamepageState extends State<Namepage> {
                    if(_formkey.currentState!.validate()){
                      var response = await authService.signIn(username, password);
                      if(response == "User found"){
+                       final userInf = await SharedPreferences.getInstance();
+                      userInf.setString('username', username);
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
                      }
                      else if(response == "User not found"){

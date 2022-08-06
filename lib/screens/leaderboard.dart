@@ -12,18 +12,26 @@ class leaderPage extends StatefulWidget {
 }
 
 class _leaderPageState extends State<leaderPage> {
+  
   @override
   Widget build(BuildContext context) {
-  
-     LeaderProvider leadprov = Provider.of<LeaderProvider>(context);
-      ToastContext().init(context);
-    return SafeArea(child: Scaffold(
-      resizeToAvoidBottomInset:false,
-       appBar: AppBar(
+    AppBar appb = AppBar(
         title: Text("Leader Board"),
         backgroundColor: Colors.blue[900],
         centerTitle: true,
-       ),
+       );
+    
+    LeaderProvider leadprov = Provider.of<LeaderProvider>(context);
+      ToastContext().init(context);
+      double statusheight = MediaQuery.of(context).viewPadding.top;
+     double sh = MediaQuery.of(context).size.height;
+     sh = sh - statusheight;
+     sh=sh-50;
+     sh=sh-appb.preferredSize.height;
+
+    return SafeArea(child: Scaffold(
+      resizeToAvoidBottomInset:false,
+       appBar: appb,
       body: 
       (leadprov.isLoading==false)?Column(
           mainAxisSize: MainAxisSize.min,
@@ -34,7 +42,7 @@ class _leaderPageState extends State<leaderPage> {
           Padding(padding:EdgeInsets.only(left: 105),child: Text("Courses Finished",style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),))],)
            
            ,SizedBox(height: 10),
-         Container(  height: 550,child:  ListView.builder(
+         Container(  height: sh,child:  ListView.builder(
 
                       itemCount: leadprov.friends.length,
                       itemBuilder: (context,index){

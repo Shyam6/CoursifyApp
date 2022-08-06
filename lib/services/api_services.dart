@@ -22,6 +22,7 @@ class CourseApi {
     Uri requesturi = Uri.parse(baseurl+'/list?query='+ id);
     var response = await http.get(requesturi);
     //convert json response to map
+    print(response.body);
      var decodedResponse = jsonDecode(response.body);
      if(decodedResponse==null){
       return {};

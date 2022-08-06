@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:coursify_app/services/auth_services.dart';
 import 'package:toast/toast.dart';
+import 'package:url_launcher/url_launcher.dart';
  String ans ="";
 class drawer extends StatefulWidget {
   const drawer({ Key? key }) : super(key: key);
@@ -106,7 +107,15 @@ class _drawerState extends State<drawer> {
                           return BackdropFilter(
                             filter: ImageFilter.blur(),
                             child: AlertDialog(content:Column(children:[Text('To give the feedback about the application please send a mail to the following email'),
-                            
+                            InkWell(
+              child: Text('ranganshyamsundar@gmail.com'),
+              onTap: () async {
+                String uri = 'mailto:ranganshyamsundar@gmail.com';
+                 if(await canLaunchUrl(Uri.parse(uri))){
+                  launchUrl(Uri.parse(uri));
+                 }
+              }
+          ),
                             ],mainAxisSize: MainAxisSize.min,)));
 
            },);}

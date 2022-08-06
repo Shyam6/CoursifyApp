@@ -1,4 +1,5 @@
 import 'package:coursify_app/models/course.dart';
+import 'package:coursify_app/providers/leaderboard_provider.dart';
 import 'package:coursify_app/screens/leaderboard.dart';
 import 'package:coursify_app/screens/mycourses.dart';
 import 'package:coursify_app/screens/signIn.dart';
@@ -10,6 +11,8 @@ import 'package:coursify_app/services/api_services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toast/toast.dart';
 import 'package:uuid/uuid.dart';
+
+import '../main.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({ Key? key}) : super(key: key);
@@ -23,12 +26,7 @@ class _HomePageState extends State<HomePage> {
   var controller = TextEditingController();
  
   Widget build(BuildContext context) {
-     
-    return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        drawer: drawer(),
-        appBar: AppBar(
+    AppBar appb = AppBar(
           iconTheme: IconThemeData(color: Colors.white,size: 24),
           title : Text('Coursify',
           style: TextStyle(
@@ -46,16 +44,28 @@ class _HomePageState extends State<HomePage> {
       onPressed: () async {
         final prefs = await SharedPreferences.getInstance();
         prefs.remove('username');
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Namepage()));
+      LeaderProvider leadprov = Provider.of<LeaderProvider>(context,listen: false);
+       // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>Namepage()));
+        Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context)=>MyApp()), (route) => false);
       },)],
           elevation: 0,
           backgroundColor: Colors.blue[900]
-        ),
+        );
+     double sw = MediaQuery.of(context).size.width;
+     double sh = MediaQuery.of(context).size.height;
+     double uph = MediaQuery.of(context).padding.top;
+     double appbarh = appb.preferredSize.height;
+     sh = sh-uph-appbarh-550;
+    return SafeArea(
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        drawer: drawer(),
+        appBar: appb,
         backgroundColor: Colors.white,
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 20,),
+            SizedBox(height: sh/2),
             Padding(
               padding: EdgeInsets.only(left: 17),
               child:
@@ -89,8 +99,10 @@ class _HomePageState extends State<HomePage> {
                       };
                       var res = await CourseApi.addCourse(mp,controller.text);
                      var courseresponse =  await CourseApi.courseInfo(mp["id"]);
+                     print(mp["id"]);
                      if(!courseresponse.isEmpty){
                        Course currentcourse = Course.fromMap(courseresponse) ;
+                       print(currentcourse.id);
                      Provider.of<CourseProvider>(context,listen: false).addCourse(currentcourse);
                      }
                    //  print(res);
@@ -104,7 +116,7 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(height: 30,),
            Padding(
-            padding: EdgeInsets.symmetric(horizontal: 122.2),
+            padding: EdgeInsets.symmetric(horizontal: (sw-167)/2),
             child: ElevatedButton.icon(onPressed : (){
               Navigator.push(context, MaterialPageRoute(builder: (Context)=>courses()));
             }, 
@@ -121,7 +133,7 @@ class _HomePageState extends State<HomePage> {
             )),
             SizedBox(height: 20,),
              Padding(
-            padding: EdgeInsets.symmetric(horizontal: 118.7),
+            padding: EdgeInsets.symmetric(horizontal: (sw-174)/2),
             child:ElevatedButton.icon(onPressed : (){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>leaderPage()));
             }, 
@@ -137,7 +149,7 @@ class _HomePageState extends State<HomePage> {
             ),
             )),
             SizedBox(height: 10,),
-            Padding(padding:EdgeInsets.symmetric(horizontal: 55.7),child:Image.asset('assests/homepng.png',height:300,width:300)),
+            Padding(padding:EdgeInsets.symmetric(horizontal: (sw-300)/2),child:Image.asset('assests/homepng.png',height:300,width:300)),
           ],
         ),
       ),

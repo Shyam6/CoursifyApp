@@ -25,8 +25,12 @@ String username = "" ;
 
   Widget build(BuildContext context) {
 
-    LeaderProvider leadprov = Provider.of<LeaderProvider>(context);
+   // LeaderProvider leadprov = Provider.of<LeaderProvider>(context);
     ToastContext().init(context);
+     double statusheight = MediaQuery.of(context).viewPadding.top;
+     double sh = MediaQuery.of(context).size.height;
+     sh = sh - statusheight;
+     sh = sh-582;
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -38,7 +42,7 @@ String username = "" ;
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SizedBox(height: 20.0),
+              SizedBox(height: sh/2),
              Container( width: 350,child:  TextFormField(
                 decoration: InputDecoration(hintText: "Enter a Username"),
                 validator: (val) => val!.isEmpty ?"Enter a Username":null,
@@ -46,7 +50,7 @@ String username = "" ;
                      username = val;
                 },
               )),
-              SizedBox(height: 20.0),
+              SizedBox(height: 20),
              Container( width: 350,child:TextFormField(
              decoration : InputDecoration(hintText: "Enter a password"),
              validator: (val) => val!.length<6 ?"Enter a password 6+ chars long":null,

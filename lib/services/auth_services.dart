@@ -18,8 +18,6 @@ static String baseurl = "https://ancient-scrubland-07381.herokuapp.com/";
  static Future<String> signIn(String username,String password) async {
          Uri requesturi = Uri.parse(baseurl+'signIn');
     var response = await http.post(requesturi,body: {"username":username,"password":password});
-    final userInf = await SharedPreferences.getInstance();
-    userInf.setString('username', username);
     return response.body;  
   }
 
@@ -42,6 +40,9 @@ static Future<String> addFriend(String friendname,String myname) async {
      var myname = prefs.getString('username').toString();
     Uri requesturi = Uri.parse(baseurl+'friendnames?query='+ myname);
     var response = await http.get(requesturi);
+    if(response.body=="Could not find the names due error"){
+      return [];
+    }
     //print(json.decode(response.body).runtimeType);
     return json.decode(response.body);
   }
@@ -51,7 +52,7 @@ static Future<String> addFriend(String friendname,String myname) async {
       var prefs = await SharedPreferences.getInstance();
      var myname = prefs.getString('username').toString();
     Uri requesturi = Uri.parse(baseurl+'course/updatecourses?query='+ myname);
-    var response = await http.post(requesturi,body: {"coursesfinished":"1"});
+    var response = await http.put(requesturi);
     //print(json.decode(response.body).runtimeType);
     return response.body;
   }

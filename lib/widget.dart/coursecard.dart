@@ -42,7 +42,9 @@ class _mycoursecardState extends State<mycoursecard> {
   Widget build(BuildContext context) {
   
   LeaderProvider leadprov = Provider.of<LeaderProvider>(context);
-
+    double sw = MediaQuery.of(context).size.width;
+    double sw2 = sw-8-283.4;
+    sw=sw-50;
     return Card(
       elevation: 8,
       shape: RoundedRectangleBorder(
@@ -135,14 +137,14 @@ class _mycoursecardState extends State<mycoursecard> {
                       Container(height: 76,child: IconButton(onPressed: () async {
                        await launchUrlString(widget.url);
 
-                      }, icon: Image.asset('assests/coursera.png',),iconSize: 120,padding: EdgeInsets.all(0),))
+                      }, icon: Image.asset('assests/coursera.png',),iconSize: sw2,padding: EdgeInsets.all(0),))
                      ],
                    ),
                    
                    ButtonBar(
                     alignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      OutlinedButton(onPressed: (){
+                      Container(width:sw/3,child:OutlinedButton(onPressed: (){
                         showDialog(context: context, builder: (BuildContext context){
                           return BackdropFilter(
                             child: AlertDialog(content : Column(
@@ -191,17 +193,17 @@ class _mycoursecardState extends State<mycoursecard> {
                             ),),
                             filter: ImageFilter.blur()) ;
                         });
-                      },style: OutlinedButton.styleFrom(primary: Colors.blue[900]) ,child: Text('Set Reminder',style: TextStyle(color: Colors.blue[900]),)),
-                      OutlinedButton(onPressed: (){
+                      },style: OutlinedButton.styleFrom(primary: Colors.blue[900]) ,child: Text('Set Reminder',style: TextStyle(color: Colors.blue[900]),))),
+                    Container(width:sw/3,child:   OutlinedButton(onPressed: (){
                         Navigator.push(context, MaterialPageRoute(builder: (context)=>stats(noOfLectures: widget.noOfLectures, lecturesFinished: widget.lecturesFinished, noOfWeeks: widget.noOfWeeks, weekdata: widget.weekdata,remvlec: widget.remvlec,)));
-                      },style: OutlinedButton.styleFrom(primary: Colors.blue[900]) , child: Text('Get Statistics',style: TextStyle(color: Colors.blue[900]))),
-                     OutlinedButton(onPressed: () async {
+                      },style: OutlinedButton.styleFrom(primary: Colors.blue[900]) , child: Text('Get Statistics',style: TextStyle(color: Colors.blue[900])))),
+                Container(width:sw/3,child: OutlinedButton(onPressed: () async {
                      // print(widget.id);
                         Provider.of<CourseProvider>(context,listen: false).deleteNote(widget.id);
                         var res = await CourseApi.deleteCourse(widget.id);
                           
                     Toast.show(res);
-                     }, style: OutlinedButton.styleFrom(primary: Colors.blue[900]) ,child: Text('Delete Course',style: TextStyle(color: Colors.blue[900]))),
+                     }, style: OutlinedButton.styleFrom(primary: Colors.blue[900]) ,child: Text('Delete Course',style: TextStyle(color: Colors.blue[900])))),
                     ],
                    )
                  ],
